@@ -3,9 +3,9 @@
 #include <stdlib.h>
 /**
  * main -entry point
- * description: 'check for number if it is positive or negative'
- * return: always 0
- * */
+ * Description: 'check for number if it is positive or negative'
+ * Return: always 0
+ **/
 int main(void)
 {
 	int n;
