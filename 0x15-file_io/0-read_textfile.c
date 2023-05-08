@@ -1,38 +1,28 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <fcntl.h>
 #include "main.h"
-#include <unistd.h>
+#include <stdlib.h>
 
 /**
- * read_textfile - returns the actual number of letters it could read and print
- * @filename: file to read and print
- * @letters: number of letters to print
- * Return: the number or letters
+ * read_textfile- Read text file print to STDOUT.
+ * @filename: text file being read
+ * @letters: number of letters to be read
+ * Return: w- actual number of bytes read and printed
+ *        0 when function fails or filename is NULL.
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-
-	int fd, sz;
 	char *buf;
+	ssize_t fd;
+	ssize_t w;
+	ssize_t t;
 
-	if (filename == NULL)
-		return (0);
-	buf = malloc(letters * sizeof(char));
-	if (buf == NULL)
-		return (0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);
-	sz = write(STDOUT_FILENO, buf, read(fd, buf, letters));
-	if (sz == -1)
-		return (0);
-	close(fd);
+	buf = malloc(sizeof(char) * letters);
+	t = read(fd, buf, letters);
+	w = write(STDOUT_FILENO, buf, t);
+
 	free(buf);
-	return (sz);
-
-
+	close(fd);
+	return (w);
 }
